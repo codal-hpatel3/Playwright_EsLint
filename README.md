@@ -42,23 +42,23 @@ npx eslint . --ext .ts --fix
 npx prettier --write .
 
 ## 📏 ESLint & Prettier
-ESLint catches errors and enforces rules such as:
-Missing await in Playwright actions (playwright/missing-playwright-await)
-Unused variables (@typescript-eslint/no-unused-vars)
-Forgotten promises (@typescript-eslint/no-floating-promises)
-Prettier enforces consistent formatting (quotes, semicolons, indentation, etc.)
-Integration: ESLint is configured to run Prettier as a rule (prettier/prettier).
+- ESLint catches errors and enforces rules such as:
+- Missing await in Playwright actions (playwright/missing-playwright-await)
+- Unused variables (@typescript-eslint/no-unused-vars)
+- Forgotten promises (@typescript-eslint/no-floating-promises)
+- Prettier enforces consistent formatting (quotes, semicolons, indentation, etc.)
+- Integration: ESLint is configured to run Prettier as a rule (prettier/prettier).
 
 ## 🏗️ Page Object Model (POM)
-pages/LoginPage.ts → login actions
-pages/InventoryPage.ts → product list/cart interactions
-pages/CartPage.ts → cart operations
-pages/CheckoutPage.ts → checkout steps
-This design makes tests reusable, readable, and maintainable.
+- pages/LoginPage.ts → login actions
+- pages/InventoryPage.ts → product list/cart interactions
+- pages/CartPage.ts → cart operations
+- pages/CheckoutPage.ts → checkout steps
+- This design makes tests reusable, readable, and maintainable.
 
 ## ✨ Benefits
-Strong type safety with TypeScript
-Enforced code quality & style (ESLint + Prettier)
-Prevents common mistakes (like missing await)
-Reusable Page Object Model structure
-Ready for CI/CD integration
+- Strong type safety with TypeScript
+- Enforced code quality & style (ESLint + Prettier)
+- Prevents common mistakes (like missing await)
+- Reusable Page Object Model structure
+- Ready for CI/CD integration

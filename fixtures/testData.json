@@ -1,0 +1,27 @@
+{
+  "users": {
+    "validUser": {
+      "username": "standard_user",
+      "password": "secret_sauce"
+    },
+    "lockedUser": {
+      "username": "locked_out_user",
+      "password": "secret_sauce"
+    },
+    "problemUser": {
+      "username": "problem_user",
+      "password": "secret_sauce"
+    }
+  },
+  "checkout": {
+    "firstName": "Himen",
+    "lastName": "Patel",
+    "postalCode": "390001"
+  },
+  "urls": {
+    "sauceDemo": "https://www.saucedemo.com"
+  },
+  "products": {
+    "countToAdd": 2
+  }
+}

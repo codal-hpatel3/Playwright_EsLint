@@ -1,5 +1,5 @@
-import { test, expect } from "../utils/App";
-import { readJSON } from "../utils/JsonReader";
+import { test, expect } from "../../utils/App";
+import { readJSON } from "../../utils/JsonReader";
 
 const data: Record<string, any> = readJSON("fixtures/testData.json");
 

@@ -37,13 +37,15 @@ const reportConfig: OrtoniReportConfig = {
   },
 };
 
-
 export default defineConfig({
   testDir: "./tests",
   testMatch: ["**/*.spec.ts", "**/*.test.ts"],
   /* Run tests in files in parallel */
   fullyParallel: true,
-  reporter: [[`html`, { outputFolder: 'html-report', open: 'never' }], ['ortoni-report', reportConfig]],
+  reporter: [
+    [`html`, { outputFolder: "html-report", open: "never" }],
+    ["ortoni-report", reportConfig],
+  ],
   use: {
     baseURL: "https://www.saucedemo.com",
     trace: "on-first-retry",

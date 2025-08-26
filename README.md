@@ -18,6 +18,7 @@ Playwright_Framework/
 ├── eslint.config.js/mjs # ESLint flat config
 ├── .prettierrc # Prettier rules
 └── README.md # Project documentation
+
 ---
 
 ## 🛠️ Installation
@@ -29,9 +30,11 @@ cd Playwright_Framework
 npm install
 
 ## ▶️ Running Tests
+
 npx playwright test
 
 ## 🧹 Linting & Formatting
+
 🔎 Check lint issues
 npx eslint . --ext .ts
 
@@ -42,6 +45,7 @@ npx eslint . --ext .ts --fix
 npx prettier --write .
 
 ## 📏 ESLint & Prettier
+
 - ESLint catches errors and enforces rules such as:
 - Missing await in Playwright actions (playwright/missing-playwright-await)
 - Unused variables (@typescript-eslint/no-unused-vars)
@@ -50,6 +54,7 @@ npx prettier --write .
 - Integration: ESLint is configured to run Prettier as a rule (prettier/prettier).
 
 ## 🏗️ Page Object Model (POM)
+
 - pages/LoginPage.ts → login actions
 - pages/InventoryPage.ts → product list/cart interactions
 - pages/CartPage.ts → cart operations
@@ -57,6 +62,7 @@ npx prettier --write .
 - This design makes tests reusable, readable, and maintainable.
 
 ## ✨ Benefits
+
 - Strong type safety with TypeScript
 - Enforced code quality & style (ESLint + Prettier)
 - Prevents common mistakes (like missing await)

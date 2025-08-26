@@ -13,7 +13,7 @@ import { defineConfig } from "@playwright/test";
  */
 export default defineConfig({
   testDir: "./tests",
-  testMatch: ['**/*.spec.ts', '**/*.test.ts'],
+  testMatch: ["**/*.spec.ts", "**/*.test.ts"],
   /* Run tests in files in parallel */
   fullyParallel: true,
   reporter: "html",

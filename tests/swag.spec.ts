@@ -1,94 +1,81 @@
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { InventoryPage } from "../pages/InventoryPage";
-import { CartPage } from "../pages/CartPage";
-import { CheckoutPage } from "../pages/CheckoutPage";
-import { CommonActions } from "../utils/CommonActions";
+import { test, expect } from "../utils/App";
+import { readJSON } from "../utils/JsonReader";
 
-const USERS = {
-  valid: { username: "standard_user", password: "secret_sauce" },
-  locked: { username: "locked_out_user", password: "secret_sauce" },
-};
-
-const CHECKOUT = {
-  firstName: "Himen",
-  lastName: "Patel",
-  postalCode: "390012",
-};
-const PRODUCTS = { countToAdd: 2 };
+const data: Record<string, any> = readJSON("fixtures/testData.json");
 
 test.describe("Sauce Demo - Inline test data", () => {
-  /** @groups ui */
-  test.beforeEach(async ({ page }) => {
-    const login = new LoginPage(page);
-    await login.goto();
+  test.beforeEach(async ({ app }) => {
+    await app.login.goto();
   });
 
-  test('1) Successful login lands on Products @smoke', async ({ page }) => {
-    const login = new LoginPage(page);
-    const actions = new CommonActions(page);
-    await login.login(USERS.valid.username, USERS.valid.password);
-
-    const inventory = new InventoryPage(page);
-    await inventory.expectLoaded();
+  test("1) Successful login lands on Products @smoke", async ({ app }) => {
+    await app.login.login(
+      data.users.validUser.username,
+      data.users.validUser.password
+    );
+    await app.inventory.expectLoaded();
   });
 
-  test("2) Locked user shows error banner @regession", async ({ page }) => {
-    const login = new LoginPage(page);
-    await login.login(USERS.locked.username, USERS.locked.password);
-    await login.expectLoginError();
+  test("2) Locked user shows error banner @regession", async ({ app }) => {
+    await app.login.login(
+      data.users.lockedUser.username,
+      data.users.lockedUser.password
+    );
+    await app.login.expectLoginError();
   });
 
   test("3) Add multiple items -> cart badge & cart contents @smoke", async ({
-    page,
+    app,
   }) => {
-    const login = new LoginPage(page);
-    await login.login(USERS.valid.username, USERS.valid.password);
+    await app.login.login(
+      data.users.validUser.username,
+      data.users.validUser.password
+    );
 
-    const inventory = new InventoryPage(page);
-    await inventory.expectLoaded();
-    await inventory.addFirstNItems(PRODUCTS.countToAdd);
+    await app.inventory.expectLoaded();
+    await app.inventory.addFirstNItems(data.products.countToAdd);
 
-    await expect(inventory.cartBadge).toHaveText(String(PRODUCTS.countToAdd));
+    await expect(app.inventory.cartBadge).toHaveText(
+      String(data.products.countToAdd)
+    );
 
-    await inventory.openCart();
-    const cart = new CartPage(page);
-    await cart.expectItemCount(PRODUCTS.countToAdd);
+    await app.inventory.openCart();
+    await app.cart.expectItemCount(data.products.countToAdd);
   });
 
-  test("4) Sort by Price (low->high) @smoke", async ({ page }) => {
-    const login = new LoginPage(page);
-    await login.login(USERS.valid.username, USERS.valid.password);
+  test("4) Sort by Price (low->high) @smoke", async ({ app }) => {
+    await app.login.login(
+      data.users.validUser.username,
+      data.users.validUser.password
+    );
 
-    const inventory = new InventoryPage(page);
-    await inventory.expectLoaded();
+    await app.inventory.expectLoaded();
 
-    await inventory.sortBy("lohi");
-    const prices = await inventory.getVisiblePrices();
+    await app.inventory.sortBy("lohi");
+    const prices = await app.inventory.getVisiblePrices();
     const sorted = [...prices].sort((a, b) => a - b);
     expect(prices).toEqual(sorted);
   });
 
-  test("5) Full checkout flow", async ({ page }) => {
-    const login = new LoginPage(page);
-    await login.login(USERS.valid.username, USERS.valid.password);
-
-    const inventory = new InventoryPage(page);
-    await inventory.expectLoaded();
-    await inventory.addFirstNItems(1);
-    await inventory.openCart();
-
-    const cart = new CartPage(page);
-    await cart.expectItemCount(1);
-    await cart.checkout();
-
-    const checkout = new CheckoutPage(page);
-    await checkout.fillInfo(
-      CHECKOUT.firstName,
-      CHECKOUT.lastName,
-      CHECKOUT.postalCode
+  test("5) Full checkout flow", async ({ app }) => {
+    await app.login.login(
+      data.users.validUser.username,
+      data.users.validUser.password
     );
-    await checkout.finish();
-    await checkout.expectSuccess();
+
+    await app.inventory.expectLoaded();
+    await app.inventory.addFirstNItems(1);
+    await app.inventory.openCart();
+
+    await app.cart.expectItemCount(1);
+    await app.cart.checkout();
+
+    await app.checkout.fillInfo(
+      data.checkout.firstName,
+      data.checkout.lastName,
+      data.checkout.postalCode
+    );
+    await app.checkout.finish();
+    await app.checkout.expectSuccess();
   });
 });

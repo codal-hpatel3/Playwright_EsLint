@@ -358,9 +358,9 @@ export class CommonActions {
   }
 
   async readJson<T>(path: string): Promise<T> {
-  const rawData = await fs.readFile(path, "utf-8");
-  return JSON.parse(rawData) as T;
-}
+    const rawData = await fs.readFile(path, "utf-8");
+    return JSON.parse(rawData) as T;
+  }
 
   async addCookie(name: string, value: string, url?: string) {
     await this.page
@@ -382,7 +382,7 @@ export class CommonActions {
       await this.page.context().clearCookies?.();
     }
   }
-  
+
   // ---------------- Query helpers ----------------
   byTestId(id: string) {
     return this.page.getByTestId(id);
